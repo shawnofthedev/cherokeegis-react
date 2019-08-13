@@ -19,19 +19,19 @@
 // by listening for any new props (using componentWillReceiveProps)
 
 // React
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 // Redux
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { actions as mapActions } from '../../../redux/reducers/map';
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actions as mapActions } from "../../../redux/reducers/map";
 
 // ESRI
-import { loadModules } from 'esri-loader';
-import { createView } from '../../../utils/esriHelper';
+import { loadModules } from "esri-loader";
+import { createView } from "../../../utils/esriHelper";
 
 // Styled Components
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Container = styled.div`
   height: 100%;
@@ -42,13 +42,8 @@ const Container = styled.div`
 const containerID = "map-view-container";
 
 class SceneViewExample extends Component {
-
   componentDidMount() {
-    this.startup(
-      this.props.mapConfig,
-      containerID,
-      this.props.is3DScene
-    );
+    this.startup(this.props.mapConfig, containerID, this.props.is3DScene);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -57,9 +52,7 @@ class SceneViewExample extends Component {
   }
 
   render() {
-    return (
-      <Container ref="mapDiv" id={containerID}></Container>
-    );
+    return <Container ref="mapDiv" id={containerID} />;
   }
 
   // ESRI JSAPI
@@ -73,36 +66,33 @@ class SceneViewExample extends Component {
       },
       error => {
         console.error("maperr", error);
-        window.setTimeout( () => {
+        window.setTimeout(() => {
           this.startup(mapConfig, node);
         }, 1000);
-      })
-  }
+      }
+    );
+  };
 
   finishedLoading = () => {
     // Update app state only after map and widgets are loaded
     this.props.onMapLoaded();
-  }
+  };
 
-  init = (response) => {
-    this.view = response.view
+  init = response => {
+    this.view = response.view;
     this.map = response.view.map;
-  }
+  };
 
   setupWidgetsAndLayers = () => {
     loadModules([
-      'esri/layers/FeatureLayer',
-      'esri/widgets/LayerList',
-      'esri/core/Collection',
-    ])
-    .then( ([
-      FeatureLayer,
-      LayerList,
-      Collection,
-    ]) => {
+      "esri/layers/FeatureLayer",
+      "esri/widgets/LayerList",
+      "esri/core/Collection"
+    ]).then(([FeatureLayer, LayerList, Collection]) => {
       const featureLayer = new FeatureLayer({
         outFields: ["STATION_NAME", "COUNTRY", "TEMP"],
-        portalItem: { // autocasts as new PortalItem()
+        portalItem: {
+          // autocasts as new PortalItem()
           id: "3a177da3f6524d61980fb41125b2349c"
         },
         title: "Temperature on Jan, 4, 2017"
@@ -115,8 +105,7 @@ class SceneViewExample extends Component {
       // extent to the returned extent of all features.
 
       featureLayer.when(function() {
-        featureLayer.definitionExpression = createDefinitionExpression(
-          "");
+        featureLayer.definitionExpression = createDefinitionExpression("");
         zoomToLayer(featureLayer);
       });
 
@@ -129,35 +118,42 @@ class SceneViewExample extends Component {
       // definitionExpressions used by each action
       // listed in the LayerList
 
-      const expressions = new Collection([{
-        id: "75+",
-        expression: "TEMP > 75"
-      }, {
-        id: "50-75",
-        expression: "TEMP > 50 AND TEMP <=75"
-      }, {
-        id: "25-50",
-        expression: "TEMP > 25 AND TEMP <=50"
-      }, {
-        id: "25-",
-        expression: "TEMP <= 25"
-      }, {
-        id: "arctic-circle",
-        expression: "LATITUDE >= 66.5"
-      }, {
-        id: "north-temperate-zone",
-        expression: "LATITUDE < 66.5 AND LATITUDE >= 23.5"
-      }, {
-        id: "torrid-zone",
-        expression: "LATITUDE < 23.5 AND LATITUDE >= -23.5"
-      }]);
+      const expressions = new Collection([
+        {
+          id: "75+",
+          expression: "TEMP > 75"
+        },
+        {
+          id: "50-75",
+          expression: "TEMP > 50 AND TEMP <=75"
+        },
+        {
+          id: "25-50",
+          expression: "TEMP > 25 AND TEMP <=50"
+        },
+        {
+          id: "25-",
+          expression: "TEMP <= 25"
+        },
+        {
+          id: "arctic-circle",
+          expression: "LATITUDE >= 66.5"
+        },
+        {
+          id: "north-temperate-zone",
+          expression: "LATITUDE < 66.5 AND LATITUDE >= 23.5"
+        },
+        {
+          id: "torrid-zone",
+          expression: "LATITUDE < 23.5 AND LATITUDE >= -23.5"
+        }
+      ]);
 
       // When an action is triggered, the definitionExpression
       // is set on the layer and the view's extent updates
       // to match the features visible in the layer
 
       layerList.on("trigger-action", function(event) {
-
         const actionId = event.action.id;
         const layer = event.item.layer;
 
@@ -165,8 +161,7 @@ class SceneViewExample extends Component {
           return item.id === actionId;
         }).expression;
 
-        const definitionExpression = createDefinitionExpression(
-          subExpression);
+        const definitionExpression = createDefinitionExpression(subExpression);
         layer.definitionExpression = definitionExpression;
 
         zoomToLayer(layer);
@@ -177,36 +172,45 @@ class SceneViewExample extends Component {
 
         item.actionsOpen = true;
         item.actionsSections = [
-          [{
-            title: "> 75°F",
-            className: "esri-icon-zoom-out-fixed",
-            id: "75+"
-          }, {
-            title: "50°-75°F",
-            className: "esri-icon-zoom-out-fixed",
-            id: "50-75"
-          }, {
-            title: "25°-50°F",
-            className: "esri-icon-zoom-out-fixed",
-            id: "25-50"
-          }, {
-            title: "< 25°F",
-            className: "esri-icon-zoom-out-fixed",
-            id: "25-"
-          }],
-          [{
-            title: "Above Arctic Circle",
-            className: "esri-icon-zoom-out-fixed",
-            id: "arctic-circle"
-          }, {
-            title: "North Temperate Zone",
-            className: "esri-icon-zoom-out-fixed",
-            id: "north-temperate-zone"
-          }, {
-            title: "Torrid Zone",
-            className: "esri-icon-zoom-out-fixed",
-            id: "torrid-zone"
-          }]
+          [
+            {
+              title: "> 75°F",
+              className: "esri-icon-zoom-out-fixed",
+              id: "75+"
+            },
+            {
+              title: "50°-75°F",
+              className: "esri-icon-zoom-out-fixed",
+              id: "50-75"
+            },
+            {
+              title: "25°-50°F",
+              className: "esri-icon-zoom-out-fixed",
+              id: "25-50"
+            },
+            {
+              title: "< 25°F",
+              className: "esri-icon-zoom-out-fixed",
+              id: "25-"
+            }
+          ],
+          [
+            {
+              title: "Above Arctic Circle",
+              className: "esri-icon-zoom-out-fixed",
+              id: "arctic-circle"
+            },
+            {
+              title: "North Temperate Zone",
+              className: "esri-icon-zoom-out-fixed",
+              id: "north-temperate-zone"
+            },
+            {
+              title: "Torrid Zone",
+              className: "esri-icon-zoom-out-fixed",
+              id: "torrid-zone"
+            }
+          ]
         ];
       }
 
@@ -226,8 +230,9 @@ class SceneViewExample extends Component {
           "STATION_NAME = 'Eareckson/Shemya' OR " +
           "COUNTRY LIKE '%Guam%' )";
 
-        return subExpression ? baseExpression + " AND (" + subExpression +
-          ")" : baseExpression;
+        return subExpression
+          ? baseExpression + " AND (" + subExpression + ")"
+          : baseExpression;
       }
 
       // Zooms to the extent of the layer as defined by
@@ -235,28 +240,21 @@ class SceneViewExample extends Component {
       // This method will work for all FeatureLayers, even
       // those without a saved `fullExtent` on the service.
 
-      const zoomToLayer = (layer) => {
-        return layer.queryExtent()
-          .then((response) => {
-            this.view.goTo(response.extent);
-          });
-      }
+      const zoomToLayer = layer => {
+        return layer.queryExtent().then(response => {
+          this.view.goTo(response.extent);
+        });
+      };
     });
-  }
+  };
 
-  setupEventHandlers = (map) => {
-    loadModules([
-
-    ], (
-
-    ) => {
-
+  setupEventHandlers = map => {
+    loadModules([], () => {
       //
       // JSAPI Map Event Handlers go here!
       //
-
     });
-  }
+  };
 }
 
 const mapStateToProps = state => ({
@@ -264,10 +262,16 @@ const mapStateToProps = state => ({
   map: state.map
 });
 
-const mapDispatchToProps = function (dispatch) {
-  return bindActionCreators({
-    ...mapActions
-  }, dispatch);
-}
+const mapDispatchToProps = function(dispatch) {
+  return bindActionCreators(
+    {
+      ...mapActions
+    },
+    dispatch
+  );
+};
 
-export default connect(mapStateToProps, mapDispatchToProps) (SceneViewExample);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SceneViewExample);

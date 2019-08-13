@@ -11,13 +11,13 @@
   "appId": "hkdtqXBMmZ8JJ5tD",
 
   "mapConfig": {
-    "basemap": "dark-gray-vector",
+    "basemap": "streets",
     "zoom": 4,
     "center": [15, 65]
   },
 
   "webMapConfig": {
-    "id": "e691172598f04ea8881cd2a4adaa45ba",
+    "id": "54bc0e909d044dd688076f53f226a566",
     "extent": {
       "xmin": -14538934.276063018,
       "ymin": 2533399.2736569038,
@@ -28,15 +28,10 @@
   },
 
   "sceneConfig": {
-    "basemap": "dark-gray-vector",
-    "ground": "world-elevation"
-  },
-
-  "webSceneConfig": {
-    "id": "2c831005fd7b437787e3fd9ea53788e6"
+    "basemap": "streets"
   },
 
   "featureURLs": [
-    "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0"
+    "https://services.arcgis.com/IT5YbezrAr6F9SXt/arcgis/rest/services/Parcel/FeatureServer/0"
   ]
 }
