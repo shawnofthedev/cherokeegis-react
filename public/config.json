@@ -10,7 +10,6 @@
 
   "appId": "hkdtqXBMmZ8JJ5tD",
 
-
   "mapConfig": {
     "basemap": "dark-gray-vector",
     "zoom": 4,
@@ -20,10 +19,10 @@
   "webMapConfig": {
     "id": "e691172598f04ea8881cd2a4adaa45ba",
     "extent": {
-      "xmin":-14538934.276063018,
-      "ymin":2533399.2736569038,
-      "xmax":-6706890.609852799,
-      "ymax":6716033.461420637,
+      "xmin": -14538934.276063018,
+      "ymin": 2533399.2736569038,
+      "xmax": -6706890.609852799,
+      "ymax": 6716033.461420637,
       "spatialReference": 102100
     }
   },
