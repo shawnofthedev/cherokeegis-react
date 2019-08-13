@@ -10,15 +10,15 @@
 // limitations under the License.​
 
 // React
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 // Components
-import Loader from 'calcite-react/Loader';
-import background from '../styles/images/Topo-Abs-BG.svg';
-import logo from '../styles/images/Esri-React-Logo.svg';
+import Loader from "calcite-react/Loader";
+import background from "../styles/images/Topo-Abs-BG.svg";
+import logo from "../styles/images/Tribalseal_final.png";
 
 // Styled Components
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes } from "styled-components";
 
 const fadeOut = keyframes`
   0%   {opacity: 1;}
@@ -30,7 +30,7 @@ const Container = styled.div`
   z-index: 10;
   height: 100%;
   width: 100%;
-  background: rgba(255,255,255,0.1) url(${background}) no-repeat center/cover;
+  background: rgba(255, 255, 255, 0.1) url(${background}) no-repeat center/cover;
   background-blend-mode: screen;
 `;
 
@@ -48,7 +48,7 @@ const Wrapper = styled.div`
   transform: translate(-50%);
 `;
 
-const Title = styled.div `
+const Title = styled.div`
   position: absolute;
   right: 0;
   bottom: 0;
@@ -62,14 +62,14 @@ const Title = styled.div `
   color: white;
 `;
 
-const Label = styled.h1 `
+const Label = styled.h1`
   font-size: 3em;
-  text-shadow: -2px 2px 8px rgba(0,0,0,0.25);
+  text-shadow: -2px 2px 8px rgba(0, 0, 0, 0.25);
 `;
 
-const Logo = styled.img `
-  width: 5em;
-  height: 100%;
+const Logo = styled.img`
+  width: 100px;
+  height: 100px;
   margin-right: 1em;
 `;
 
@@ -78,13 +78,13 @@ const delayAmount = 1000;
 const durationAmount = 1000;
 // Animation calculations
 const animationPeriod = delayAmount + durationAmount;
-const animationDelay = delayAmount + 'ms';
-const animationDuration = durationAmount + 'ms';
+const animationDelay = delayAmount + "ms";
+const animationDuration = durationAmount + "ms";
 
 class LoadScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = { isAnimating: true }
+    this.state = { isAnimating: true };
   }
 
   // Run animation timer
@@ -94,30 +94,30 @@ class LoadScreen extends Component {
         isAnimating: false
       });
     }, animationPeriod);
-  }
+  };
 
   render() {
     if (!this.props.isLoading && this.state.isAnimating) {
       return (
         <Container>
           <Wrapper>
-            <Loader/>
+            <Loader />
           </Wrapper>
           <Title>
-            <Logo src={logo}></Logo>
-            <Label>Esri-React-Boot</Label>
+            <Logo src={logo} />
+            <Label>CherokeeGIS</Label>
           </Title>
         </Container>
-      )
+      );
     } else if (this.props.isLoading && this.state.isAnimating) {
       this.playAnimation();
       return (
-        <FadingContainer delay={animationDelay} duration={animationDuration}/>
-      )
+        <FadingContainer delay={animationDelay} duration={animationDuration} />
+      );
     }
 
     return null;
   }
 }
 
-export default LoadScreen
+export default LoadScreen;
