@@ -58,12 +58,16 @@ const Logo = styled(TopNavBrand)`
 `;
 
 const Nav = styled(TopNav)`
-  background-color: ${props => props.theme.palette.offWhite};
+  background-color: ${props => props.theme.palette.black};
   z-index: 5;
 `;
 
 const NavList = styled(TopNavList)`
   text-align: left;
+`;
+
+const NavTitle = styled(TopNavTitle)`
+  color: gray;
 `;
 
 // Class
@@ -83,7 +87,7 @@ class Main extends Component {
 
         <Nav>
           <Logo href="#" src={logo} />
-          <TopNavTitle href="#">nc-cherokeegis.com</TopNavTitle>
+          <NavTitle href="#">CherokeeGIS.com</NavTitle>
           <NavList>
             <TopNavLink href="https://github.com/Esri/esri-react-boot">
               Github
@@ -108,7 +112,7 @@ class Main extends Component {
           <SceneViewExample
             onMapLoaded={this.props.mapLoaded}
             mapConfig={this.props.config.sceneConfig}
-            is3DScene={true}
+            is3DScene={false}
           />
         </MapWrapper>
       </Container>
