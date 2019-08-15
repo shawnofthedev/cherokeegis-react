@@ -8,27 +8,12 @@
   "jsapiV4": true,
   "loginWithPopup": false,
 
-  "appId": "hkdtqXBMmZ8JJ5tD",
-
-  "mapConfig": {
-    "basemap": "streets",
-    "zoom": 4,
-    "center": [15, 65]
-  },
-
-  "webMapConfig": {
-    "id": "54bc0e909d044dd688076f53f226a566",
-    "extent": {
-      "xmin": -14538934.276063018,
-      "ymin": 2533399.2736569038,
-      "xmax": -6706890.609852799,
-      "ymax": 6716033.461420637,
-      "spatialReference": 102100
-    }
-  },
+  "appId": "4XXCbI8D22g8c98Z",
 
   "sceneConfig": {
-    "basemap": "streets"
+    "basemap": "streets",
+    "zoom": 12,
+    "center": [-83.32061, 35.477032]
   },
 
   "featureURLs": [
